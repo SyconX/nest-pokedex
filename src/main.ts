@@ -13,12 +13,13 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
+      // transformar query params (siempre viene string)
       transform: true, 
       transformOptions: {
         enableImplicitConversion: true
       }
     })
   );
-  await app.listen(3000);
+  await app.listen(process.env.PORT);
 }
 bootstrap();

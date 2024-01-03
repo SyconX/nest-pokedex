@@ -13,6 +13,7 @@ export class SeedService {
   ){}
 
   async execute() {
+    // Comentar si no hay DB creada
     await this.pokemonService.removeAll();
 
     const data = await this.http.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=650')
