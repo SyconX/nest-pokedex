@@ -22,6 +22,15 @@ export class PokemonService {
     }
   }
 
+  async createMany(createPokemonDto: CreatePokemonDto[]) {
+    try {
+      const pokemon = await this.pokemonModel.create(createPokemonDto); 
+      return pokemon;
+    } catch (error) {
+      this.handleExceptions(error);
+    }
+  }
+
   async findAll() {
     return await this.pokemonModel.find();
   }
@@ -71,6 +80,12 @@ export class PokemonService {
     return;
   }
 
+  async removeAll() {
+    const { deletedCount } = await this.pokemonModel.deleteMany({});
+    if (deletedCount === 0)
+      throw new BadRequestException(`No se han podido borrar los pokemons`)
+    return;
+  } 
 
   private handleExceptions(error: any) {
     if (error.code === 11000) 
